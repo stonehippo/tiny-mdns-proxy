@@ -12,6 +12,9 @@ const dgram = require('dgram')
 const util = require('util')
 const dnsPacket = require('dns-packet')
 
+// define the domain to proxy .local mDNS addresses to
+const tld = /\.hippo$/
+
 const lookupOptions = {
 	family: 4
 }
@@ -52,7 +55,8 @@ server.on('message', (message, requestInfo) => {
 	const { address, port } = requestInfo
 	console.log(decoded)
 	decoded.questions.forEach(question => {
-		lookup(question.name)
+		const name = tld.match(question.name) ? question.name.replace(tld, '.local') : question.name
+		lookup(name)
 			.then(result => {
 				const packaged = package(question.name, result.address, decoded.id)
 				console.log(packaged)
