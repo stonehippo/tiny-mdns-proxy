@@ -10,7 +10,7 @@ I have tested this on a Raspberry Pi running Raspbian Stretch.
 
 ## Dependencies
 
-- [Node.js](https://nodejs.com)
+- [Node.js](https://nodejs.org)
 - [dns-packet](https://github.com/mafintosh/dns-packet)
 
 Install Node.js, then run:
