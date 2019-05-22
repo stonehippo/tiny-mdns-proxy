@@ -55,7 +55,7 @@ server.on('message', (message, requestInfo) => {
 	const { address, port } = requestInfo
 	console.log(decoded)
 	decoded.questions.forEach(question => {
-		const name = tld.match(question.name) ? question.name.replace(tld, '.local') : question.name
+		const name = tld.test(question.name) ? question.name.replace(tld, '.local') : question.name
 		lookup(name)
 			.then(result => {
 				const packaged = package(question.name, result.address, decoded.id)
