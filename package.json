@@ -1,0 +1,14 @@
+{
+  "name": "mdns-proxy",
+  "version": "1.0.0",
+  "description": "A simple mDNS to DNS proxy for node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "George White <stonehippo@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "dns-packet": "^5.2.1"
+  }
+}
