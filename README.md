@@ -21,7 +21,21 @@ npm install
 
 ## Running
 
-To do
+It's possible to run `tiny-mdns-proxy` from the command line. You can do this with:
+
+```sh
+sudo node index.js
+```
+
+This isn't ideal, since it's bound to the current shell. I use [PM2](https://pm2.io) to daemonize the script and set up a service hook at boot.
+
+```sh
+sudo npm i -g pm2
+sudo pm2 start --name tiny-mdns-proxy index.js
+sudo pm2 startup --service-name tiny-mdns-proxy 
+``` 
+
+This will set up the app as a service, then create a startup script. You need to use `sudo`, because the script binds to port 53 to provide DNS services.
 
 ## License
 
