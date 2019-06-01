@@ -37,6 +37,10 @@ sudo pm2 startup --service-name tiny-mdns-proxy
 
 This will set up the app as a service, then create a startup script. You need to use `sudo`, because the script binds to port 53 to provide DNS services.
 
+## Exploring Other Implementations
+
+I built this using Node.js, but it could have been done with other languages. For example, in Ruby the native Socket (which provides `getaddrinfo`, which uses the underlying OS and can therefore resolve mDNS if the system is set up to do so) and the [net-dns](https://github.com/bluemonk/net-dns) for handling the DNS nameserver and packet stuff. Similarly, Python's Socket library, plus something like [dnspython](https://pypi.org/project/dnspython/) would have worked, too.
+
 ## License
 
 This code is copyright (c) 2019 George White, and is available via the MIT License. See LICENSE for details
