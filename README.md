@@ -6,7 +6,7 @@ A small, simple DNS server for proxying mDNS requests for Raspbian on Raspberry 
 
 tiny-mdns-proxy uses Node.js to implement a very simple DNS server using ipv4 UDP socket. The server will accept standard DNS name queries, then use the Node.js `dns.lookup` library method to utilize the underlying operating system name resolvers. Raspbian Stretch is configured to include the Avahi minimal mdns4 resolver (see `nssswitch.conf`). This means that the operating system will typically resolve local mDNS requests.
 
-I have tested this on a Raspberry Pi running Raspbian Stretch.
+I have tested this on a Raspberry Pi running Raspbian versions Stretch and Buster, as well as Ubuntu on various platforms, including WSL, and MacOS.
 
 ## Dependencies
 
