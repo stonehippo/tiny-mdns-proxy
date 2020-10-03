@@ -34,13 +34,14 @@ const emptyResponse =  id => dnsPacket.encode({
 })
 
 // package a simple mDNS response into a valid DNS response
-const package = (name, address, id) =>  ({
+const package = (question, name, address, id) =>  ({
 	type: 'response',
 	id: id,
-	class: 'IN',
-	questions: [],
+	flags: dnsPacket.AUTHENTIC_DATA,
+	questions: [question],
 	answers: [{
 		type: 'A',
+		class: 'IN',
 		name: name,
 		data: address
 	}],
@@ -58,7 +59,7 @@ server.on('message', (message, requestInfo) => {
 		const name = tld.test(question.name) ? question.name.replace(tld, '.local') : question.name
 		lookup(name)
 			.then(result => {
-				const packaged = package(question.name, result.address, decoded.id)
+				const packaged = package(question, question.name, result.address, decoded.id)
 				console.log(packaged)
 				const response = dnsPacket.encode(packaged)
 				server.send(response, 0, response.length, port, address)
