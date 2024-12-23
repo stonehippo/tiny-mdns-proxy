@@ -8,6 +8,8 @@ tiny-mdns-proxy uses Node.js to implement a very simple DNS server using ipv4 UD
 
 I have tested this on a Raspberry Pi running Raspbian versions Stretch, Buster, and Bookworm as well as Ubuntu on various platforms, including WSL, and MacOS.
 
+As of version 0.2.0, this code *should* also work with [Deno](https://deno.com), but I haven't tested it yet.
+
 ## Dependencies
 
 - [Node.js](https://nodejs.org)
@@ -24,14 +26,14 @@ npm install
 It's possible to run `tiny-mdns-proxy` from the command line. You can do this with:
 
 ```sh
-sudo node index.js
+sudo node index.mjs
 ```
 
 This isn't ideal, since it's bound to the current shell. I use [PM2](https://pm2.io) to daemonize the script and set up a service hook at boot.
 
 ```sh
 sudo npm i -g pm2
-sudo pm2 start --name tiny-mdns-proxy index.js
+sudo pm2 start --name tiny-mdns-proxy index.mjs
 sudo pm2 startup --service-name tiny-mdns-proxy 
 ``` 
 

@@ -1,7 +1,8 @@
 {
   "name": "tiny-mdns-proxy",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A small, simple DNS server for proxying mDNS requests for Raspbian on Raspberry Pi.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
