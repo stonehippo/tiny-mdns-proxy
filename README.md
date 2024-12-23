@@ -15,7 +15,9 @@ As of version 0.2.0, this code *should* also work with [Deno](https://deno.com),
 - [Node.js](https://nodejs.org)
 - [dns-packet](https://github.com/mafintosh/dns-packet)
 
-Install Node.js, then run:
+Install Node.js. [There a few ways to do this on Raspberry Pi OS](https://gist.github.com/stonehippo/f4ef8446226101e8bed3e07a58ea512a).
+
+Then run:
 
 ```sh
 npm install
