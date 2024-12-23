@@ -1,6 +1,6 @@
 # tiny-mdns-proxy
 
-A small, simple DNS server for proxying mDNS requests for Raspbian on Raspberry Pi. Useful if you want to use Bonjour/ZeroConf/mDNS over a VPN that doens't support multicast, such as Wireguard.
+A small, simple DNS server for proxying mDNS requests for Raspberry Pi OS on Raspberry Pi. Useful if you want to use Bonjour/ZeroConf/mDNS over a VPN that does not support multicast, such as Wireguard.
 
 ## How it works
 
