@@ -8,7 +8,7 @@ tiny-mdns-proxy uses Node.js to implement a very simple DNS server using ipv4 UD
 
 I have tested this on a Raspberry Pi running Raspbian versions Stretch, Buster, and Bookworm as well as Ubuntu on various platforms, including WSL, and MacOS.
 
-As of version 0.2.0, this code *should* also work with other runtimes, like [Deno](https://deno.com) or [Bun](https://bun.sh/). I have tested with Bun 1.1 and things work as expected, but it seems like the Deno implementation of `dns.lookup()` doesn't resolve mDNS using the system resolver.
+As of version 0.2.0, this code *should* also work with other runtimes, like [Deno](https://deno.com) or [Bun](https://bun.sh/). I have tested with Bun 1.1 and Deno 2.4.3 things work as expected.
 
 ## Dependencies
 
