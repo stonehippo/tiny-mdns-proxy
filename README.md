@@ -12,18 +12,20 @@ As of version 0.2.0, this code *should* also work with other runtimes, like [Den
 
 ## Dependencies
 
-- [Node.js](https://nodejs.org)
+- [Node.js](https://nodejs.org) or another Javacript runtime, such as deno or bun.
 - [dns-packet](https://github.com/mafintosh/dns-packet)
 
 Install Node.js. [There a few ways to do this on Raspberry Pi OS](https://gist.github.com/stonehippo/f4ef8446226101e8bed3e07a58ea512a).
 
-Then run:
+If you are using Node.js run:
 
 ```sh
+git checkout https://github.com/stonehippo/tiny-mdns-proxy
+cd tiny-mdns-proxy
 npm install
 ```
 
-## Running
+## Running with Node.js
 
 It's possible to run `tiny-mdns-proxy` from the command line. You can do this with:
 
@@ -40,6 +42,31 @@ sudo pm2 startup --service-name tiny-mdns-proxy
 ``` 
 
 This will set up the app as a service, then create a startup script. You need to use `sudo`, because the script binds to port 53 to provide DNS services.
+
+### Running with bun
+
+I have recently moved from Node.js to bun for the runtime for this service, because it's a bit easier to manage on the Raspberry Pi that I use to host it. This has also let me move from using PM2 to the standard `systemd` on Raspberry OS.
+
+I have included a [`systemd` definition for tiny-mdns proxy here](serviced/tiny-mdns.service). You can follow the [instructions for setting up a bun app with `system`](https://bun.com/guides/ecosystem/systemd).
+
+I recommend this setup, as it's simpler and relies on standard system service managmenent tools.
+
+If you just want to run the proxy directly, this will work:
+
+```sh
+cd tiny-mdns-proxy
+bun index.mjs
+```
+
+This is part of why I moved to bun; no fiddling around with npm!
+
+You might get an EACCES error. This is becuase you're running as a non-root user. One fix for this is allow bun to bind to standard service ports:
+
+```sh
+sudo setcap CAP_NET_BIND_SERVICE=+eip ~/.bun/bin/bun
+```
+
+After this, the app should run just fine. 
 
 ## Exploring Other Implementations
 
