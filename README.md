@@ -43,30 +43,47 @@ sudo pm2 startup --service-name tiny-mdns-proxy
 
 This will set up the app as a service, then create a startup script. You need to use `sudo`, because the script binds to port 53 to provide DNS services.
 
-### Running with bun
+## Running with deno
 
-I have recently moved from Node.js to bun for the runtime for this service, because it's a bit easier to manage on the Raspberry Pi that I use to host it. This has also let me move from using PM2 to the standard `systemd` on Raspberry OS.
+I have recently moved from Node.js to deno for the runtime for this service, because it's a bit easier to manage on the Raspberry Pi that I use to host it. This has also let me move from using PM2 to the standard `systemd` on Raspberry OS.
 
-I have included a [`systemd` definition for tiny-mdns proxy here](serviced/tiny-mdns.service). You can follow the [instructions for setting up a bun app with `system`](https://bun.com/guides/ecosystem/systemd).
-
-I recommend this setup, as it's simpler and relies on standard system service managmenent tools.
+I have included a [`systemd` definition for tiny-mdns proxy here](serviced/tiny-mdns.service). This file should be placed in `/lib/systemd/system`. I recommend this setup, as it's simpler and relies on standard system service managmenent tools. See [the template README](./serviced/README.md) for details.
 
 If you just want to run the proxy directly, this will work:
 
 ```sh
 cd tiny-mdns-proxy
-bun index.mjs
+deno install
+deno index.mjs
 ```
 
-This is part of why I moved to bun; no fiddling around with npm!
+This is part of why I moved to deno; less fiddling around with npm!
 
-You might get an EACCES error. This is becuase you're running as a non-root user. One fix for this is allow bun to bind to standard service ports:
+You might get an EACCES error. This is because you're running as a non-root user. One fix for this is allow deno to bind to standard service ports:
 
 ```sh
-sudo setcap CAP_NET_BIND_SERVICE=+eip ~/.bun/bin/bun
+sudo setcap CAP_NET_BIND_SERVICE=+eip ~/.deno/bin/deno
 ```
 
-After this, the app should run just fine. 
+After this, the app should run just fine.
+
+### Building a standalone executable with deno
+
+deno can compile standalone executables, which removes the need for installing the  runtime seperately (it's bundled into the app). deno also supports cross-compiling, which makes building distributable versions simple.
+
+First, you'll want to compile the app. I typically do something like this for my target Raspberry Pi:
+
+```
+deno compile --no-check --target aarch64-unknown-linux-gnu --allow-net -o mdns-proxy index.mjs
+```
+
+This creates an arm64-compatible binary for Linux, which I copy to my home directory. From there, I set up the systemd service (use the standalone template).
+
+If you do this, you'll still want to fix giving the app access to bind to a standard service port:
+
+```sh
+sudo setcap CAP_NET_BIND_SERVICE=+eip ~/mdns-proxy
+```
 
 ## Exploring Other Implementations
 

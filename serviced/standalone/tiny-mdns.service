@@ -5,8 +5,7 @@ Afetr=network.target
 [Service]
 Type=simple
 User=YOUR_USER
-WorkingDirectory=/home/YOUR_USER/tiny-mdns-proxy/
-ExecStart=/home/YOUR_USER/.bun/bin/bun run index.mjs
+ExecStart=/home/YOUR_USER/mdns-proxy
 Restart=always
 
 [Install]
