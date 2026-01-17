@@ -10,7 +10,7 @@
 import * as dns from "node:dns"
 import * as dgram from "node:dgram"
 import * as util from "node:util"
-import * as dnsPacket from "npm:dns-packet"
+import * as dnsPacket from "dns-packet"
 
 // define the domain to proxy .local mDNS addresses to
 const tld = /\.hippo$/
@@ -62,7 +62,7 @@ server.on('message', (message, requestInfo) => {
 				console.log(packaged)
 				const response = dnsPacket.encode(packaged)
 				server.send(response, 0, response.length, port, address)
-			}, error => {
+			}, _error => {
 				const response = emptyResponse(decoded.id)
 				server.send(response, 0, response.length, port, address)
 			})
